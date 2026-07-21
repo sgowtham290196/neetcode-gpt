@@ -13,11 +13,12 @@ class Solution:
         # Sigmoid: σ(z) = 1 / (1 + exp(-z))
         # ReLU: max(0, z)
         # return round(your_answer, 5)
-        weighted = w * x
-        output = np.sum(weighted) + b
+        pre_act = np.dot(w,x) + b
         if activation == "sigmoid":
-            output = (1 / (1 + np.exp(-output)))
-        if activation == "relu":
-            output = max(0,output)
-        output = np.round(float(output),5)
-        return output
+            temp = np.exp(pre_act)
+            output = temp/(1 + temp)
+        elif activation == "relu":
+            output = np.maximum(0,pre_act)
+        else:
+            return "Invalid Activation"
+        return np.round(output,5)
